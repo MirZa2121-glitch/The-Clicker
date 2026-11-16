@@ -1,10 +1,14 @@
+'use client';
+
 import Link from "next/link";
 import Header from "./components/header";
+import { useLanguage } from "./components/language";
 
 export default function Home() {
+  const { text } = useLanguage();
+
   const nav_item = [
-    {id: 1, name: 'Play', href: '/play'},
-    {id: 2, name: 'Option', href: '/option'},
+    {id: 1, IMG: '/assets/img/icon/play.svg', name: text.play, href: '/play'},
   ]
 
   return (
@@ -17,8 +21,12 @@ export default function Home() {
               <li key={navs.id}>
                 <Link
                   href={navs.href}
-                  className="my-4 flex h-14 w-40 items-center justify-center border-y-2 text-center text-base sm:w-48 sm:text-lg"
+                  className="my-4 flex h-14 w-40 items-center font-bold justify-baseline text-center text-[35px] sm:w-48 sm:text-[50px]"
                 >
+                  <img 
+                  src={navs.IMG}
+                  alt=""
+                  className="w-20"/>
                   {navs.name}
                 </Link>
               </li>

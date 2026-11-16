@@ -3,10 +3,11 @@
 import * as motion from "motion/react-client"
 import { useState } from "react"
 import Link from "next/link";
-import './css/about.css'
+import { useLanguage } from "../components/language";
 
 export default function Game() {
     const [click, setClick] = useState(0)
+    const { text } = useLanguage();
 
     const forBtnBack = [
         {id: 1, href: '/'}
@@ -17,13 +18,13 @@ export default function Game() {
 
         if (click === 49) {
             setTimeout(() => {
-                alert('Doubled on x2!!!')
+                alert(text.doubled)
             }, 1000)
         }
 
         if (click === 150) {
              setTimeout(() => {
-                alert('Tripled on x3!!!')
+                alert(text.tripled)
             }, 1000)
         }
 
@@ -37,7 +38,7 @@ export default function Game() {
 
     const theResetClick = function() {
         setClick(0)
-        alert('Reseted!')
+        alert(text.resetMessage)
     }
 
     return (
@@ -47,13 +48,13 @@ export default function Game() {
                     <div className="flex flex-wrap items-center justify-between gap-3 py-4 sm:py-5">
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:gap-7">
                             {forBtnBack.map((items) => (
-                                <Link key={items.id} href={items.href} className="text-2xl font-bold sm:text-3xl md:text-[35px]">Back</Link>
+                                <Link key={items.id} href={items.href} className="text-2xl font-bold sm:text-3xl md:text-[35px]">{text.back}</Link>
                             ))}
-                            <h2 className="text-2xl font-bold sm:text-3xl md:text-[35px]">Score: {click}</h2>
+                            <h2 className="text-2xl font-bold sm:text-3xl md:text-[35px]">{text.score}: {click}</h2>
                         </div>
                         <button onClick={theResetClick}
                         className="min-h-11 touch-manipulation px-2 text-2xl font-bold sm:text-3xl md:text-[35px]">
-                            Reset
+                            {text.reset}
                         </button>
                     </div>
                     <div className="flex">
@@ -61,7 +62,7 @@ export default function Game() {
                             <button
                                 type="button"
                                 onClick={theCount}
-                                aria-label={`Tap to increase score. Current score: ${click}`}
+                                aria-label={`${text.tapButton} ${click}`}
                                 className="flex touch-manipulation flex-col items-center justify-center gap-2 rounded-full p-2 text-5xl font-bold select-none sm:text-7xl md:text-[100px]"
                             >
                                 <motion.div
