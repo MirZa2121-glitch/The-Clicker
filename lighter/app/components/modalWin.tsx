@@ -76,7 +76,7 @@ export function SettingWin() {
     const languages = [
         { code: "en", name: "English", flag: "/assets/img/icon/america-flag.svg" },
         { code: "ru", name: "Русский", flag: "/assets/img/icon/rus-flag.svg" },
-        { code: "az", name: "Azərbaycan dili", flag: "/assets/img/icon/azeri-flag.svg" },
+        { code: "az", name: "Azərbaycan", flag: "/assets/img/icon/azeri-flag.svg" },
     ] as const;
 
     return (

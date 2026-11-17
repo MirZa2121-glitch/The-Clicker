@@ -15,3 +15,7 @@
 
 - Aded 3D Ball in page /Play
 - New system game
+
+# Version APATCH v2.1.1
+
+- Bug fix
