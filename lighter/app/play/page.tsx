@@ -1,9 +1,32 @@
 'use client'
 
 import * as motion from "motion/react-client"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import Link from "next/link";
+import { Canvas, useFrame } from "@react-three/fiber"
+import { Bounds, Center, useGLTF } from "@react-three/drei"
+import type { Group } from "three"
+import { Suspense } from "react"
 import { useLanguage } from "../components/language";
+
+function AtomModel() {
+    const { scene } = useGLTF("/3D/atom.glb")
+    const modelRef = useRef<Group>(null)
+
+    useFrame((_, delta) => {
+        if (modelRef.current) modelRef.current.rotation.y += delta * 0.5
+    })
+
+    return (
+        <Bounds fit clip margin={1}>
+            <group ref={modelRef}>
+                <Center>
+                    <primitive object={scene} />
+                </Center>
+            </group>
+        </Bounds>
+    )
+}
 
 export default function Game() {
     const [click, setClick] = useState(0)
@@ -14,25 +37,57 @@ export default function Game() {
     ]
 
     const theCount = function() {
-        setClick((setPlusClick) => setPlusClick += 1)
+        let increment = 1
+        
+        if (click >= 1000) {
+            increment = 37
+        } else if (click >= 450) {
+            increment = 13
+        } else if (click >= 300) {
+            increment = 5
+        } else if (click >= 150) {
+            increment = 3
+        } else if (click >= 50) {
+            increment = 2
+        }
 
-        if (click === 49) {
+        const nextClick = click + increment
+        setClick(nextClick)
+
+        if (click < 50 && nextClick >= 50) {
             setTimeout(() => {
                 alert(text.doubled)
-            }, 1000)
+            }, 800)
         }
 
-        if (click === 150) {
+        if (click < 150 && nextClick >= 150) {
              setTimeout(() => {
                 alert(text.tripled)
-            }, 1000)
+            }, 800)
         }
 
-        if (click > 49) {
-            setClick((setDoubleClick) => setDoubleClick += 1)
+        if (click < 300 && nextClick >= 300) {
+             setTimeout(() => {
+                alert('Ultra COMBO 5x!!!')
+            }, 800)
+        }
 
-        } else if (100 > 150) {
-            setClick((setTripleClick) => setTripleClick += 2)
+        if (click < 450 && nextClick >= 450) {
+            setTimeout(() => {
+                alert('TRIPLE ULTRA HARD COMBO X13!!!!')
+            }, 800)
+        }
+
+        if (click < 1000 && nextClick >= 1000) {
+            setTimeout(() => {
+                alert('MEGA ULTRA HARD GOD COMBO X37!!!!')
+            }, 800)
+        }
+
+        if (click < 3000 && nextClick >= 3000) {
+            setTimeout(() => {
+                alert('GOD MODS ACTIVATED 🛡️ X67!!!!!')
+            }, 800)
         }
     }
 
@@ -68,9 +123,7 @@ export default function Game() {
                                 <motion.div
                                 whileHover={{scale: 1.2}}
                                 whileTap={{scale: 0.8}}
-                                style={{width: 'min(72vw, 450px, 55vh)', height: 'min(72vw, 450px, 55vh)', borderRadius: '50%',
-                                background: 'radial-gradient(circle at 30% 30%, red, gray)',
-                                boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)', animation: 'alternate'}}
+                                style={{width: 'min(70vw, 550px, 55vh)', height: 'min(72vw, 550px, 55vh)'}}
                                 animate={{
                                 y: [0, -30, 0],
                                 scale: [1, 1.1, 1],
@@ -80,7 +133,15 @@ export default function Game() {
                                 repeat: Infinity,
                                 repeatType: 'reverse',
                                 ease: 'easeInOut',
-                                }}></motion.div>
+                                }}>
+                                    <Canvas camera={{ position: [0, 0, 15] }}>
+                                        <ambientLight intensity={3} />
+                                        <directionalLight position={[1, 7, 3]} intensity={4} />
+                                        <Suspense fallback={null}>
+                                            <AtomModel />
+                                        </Suspense>
+                                    </Canvas>
+                                </motion.div>
                                 {click}
                             </button>
                         </div>

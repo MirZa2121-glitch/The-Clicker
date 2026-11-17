@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useLanguage } from "./language";
+import '../globals.css';
 
 export function ModalWin() {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +10,6 @@ export function ModalWin() {
 
     return (
         <>
-            {/* Заменили вашу кнопку на кнопку для хедера */}
             <button
                 type="button"
                 onClick={() => setIsOpen(true)}
@@ -59,7 +59,7 @@ export function ModalWin() {
                         <button
                             type="button"
                             onClick={() => setIsOpen(false)}
-                            className="mt-10 rounded-lg bg-black px-4 py-2 text-white"
+                            className="mt-10 rounded-lg bg-black px-4 py-2 text-white cursor-pointer"
                         >
                             {text.close}
                         </button>
@@ -128,7 +128,7 @@ export function SettingWin() {
                         <button
                             type="button"
                             onClick={() => setIsOpen(false)}
-                            className="mt-10 rounded-lg bg-black px-4 py-2 text-white"
+                            className="mt-10 rounded-lg bg-black px-4 py-2 text-white cursor-pointer"
                         >
                             {text.close}
                         </button>

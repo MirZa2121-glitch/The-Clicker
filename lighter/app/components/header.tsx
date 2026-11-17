@@ -10,8 +10,12 @@ const Header = function() {
     return (
         <header className="w-full">
             <div className="mx-auto mt-3 flex w-full max-w-7xl items-center justify-between gap-2 px-3 py-3 sm:mt-5 sm:flex-nowrap sm:rounded-[100px] sm:px-4 sm:py-4">
-                <Link href="/" className="font-bold text-[28px]" aria-label={text.home}>
-                    LIGHTER 💠 
+                <Link href="/" className="font-bold text-[28px] flex items-center gap-2" aria-label={text.home}>
+                    <img 
+                    src="/assets/img/logo/Logo-1.svg" 
+                    alt="logo"
+                    className="w-17"/>
+                    LIGHTER
                 </Link>
 
                 <div>
